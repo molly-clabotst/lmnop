@@ -50,7 +50,7 @@ class Note(models.Model):
     user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=False)
     text = models.TextField(max_length=1000, blank=False)
-    posted_date = models.DateTimeField(blank=False)
+    posted_date = models.DateTimeField(blank=False, auto_now=True)
 
     def publish(self):
         posted_date = datetime.datetime.today()
