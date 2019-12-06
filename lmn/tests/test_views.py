@@ -388,7 +388,7 @@ class TestUserProfile(TestCase):
     def test_user_profile_show_list_of_their_notes(self):
         # get user profile for user 2. Should have 2 reviews for show 1 and 2.
         response = self.client.get(reverse('lmn:user_profile', kwargs={'user_pk':2}))
-        notes_expected = list(Note.objects.filter(user=2))
+        notes_expected = list(Note.objects.filter(user=2).order_by('-posted_date'))
         notes_provided = list(response.context['notes'])
         self.assertTemplateUsed('lmn/users/user_profile.html')
         self.assertEqual(notes_expected, notes_provided)
