@@ -81,8 +81,8 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'jxzgotgc ',
-        'USER' : 'jxzgotgc ',
+        'NAME': 'jxzgotgc',
+        'USER' : 'jxzgotgc',
         'PASSWORD' : os.environ['LMNOP_DB_PW'],
         'HOST' : 'otto.db.elephantsql.com',
         'PORT' : '5432',
