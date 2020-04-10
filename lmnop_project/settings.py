@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'lmnop_project.wsgi.application'
 
 DATABASES = {
 
-# Uncomment this when you are ready to use Postgres.
+# Uncomment this when you are ready to use Elephant.
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -86,7 +86,7 @@ DATABASES = {
         'PASSWORD' : os.environ['LMNOP_DB_PW'],
         'HOST' : 'otto.db.elephantsql.com',
         'PORT' : '5432',
-    },
+    }
 
     # When you use Postgres, comment out or remove this DB config. 
     
@@ -94,6 +94,16 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': 'lmnop.sqlite',
     # }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'lmnop',
+    #     'USER' : 'postgres',
+    #     'PASSWORD' : os.environ['LMNOP_DB_PW'],
+    #     'HOST' : 'localhost',
+    #     'PORT' : '5432',
+    # }
+
 }
 
 

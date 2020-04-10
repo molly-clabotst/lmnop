@@ -1,0 +1,4 @@
+*.pyc
+__pycache__
+lmn.sqlite3
+env
