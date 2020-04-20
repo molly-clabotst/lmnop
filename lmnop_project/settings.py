@@ -25,7 +25,7 @@ SECRET_KEY = '8c01$#j44g3znb)$q0()8)!%ts-jc)k12!a75-!63qb%bj=d4k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,23 +79,24 @@ DATABASES = {
 
 # Uncomment this when you are ready to use Postgres.
 
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'lmnop',
-    #     'USER' : 'lmnop',
-    #     'PASSWORD' : os.environ['LMNOP_DB_PW'],
-    #     'HOST' : 'localhost',
-    #     'PORT' : '5432',
-    # },
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'places',
+         'USER' : 'traveler',
+         'PASSWORD' : os.getenv('TRAVELER_PW'),
+         'HOST' : '/cloudsql/lmnop-273410:us-central1:lmnop-db',
+         'PORT' : '5432'
+     }
 
     # When you use Postgres, comment out or remove this DB config. 
     
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'lmnop.sqlite',
-    }
+   # 'default': {
+   #     'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': 'lmnop.sqlite',
+   # }
 }
-
+if not os.getenv('GAE_INSTANCE'):
+    DATABASES ['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
