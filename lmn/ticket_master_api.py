@@ -57,7 +57,7 @@ def venue_list():
                 venue_name = venue['name'] # assigning a variable to the venue_name
                 venue_city = venue['city']['name'] # finding value for the venue city
                 venue_state = venue['state']['name'] # assigning value for the venue state
-                venue_new = Venue(name= venue_name, city= venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
+                venue_new = Venue(name=venue_name, city=venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
                 venue_new.save() # Saves the object into the database
                 print(venue_name,venue_city,venue_state)
 
@@ -77,14 +77,12 @@ def get_shows():
                 artist_name = event['name']
                 venue_name = event['_embedded']['venues'][0]['name']
                 date = event['dates']['start']['dateTime']
-                event_new = Show(art)
+                event_new = Show(show_date=date, artist=artist_name, venue=venue_name)
                 print(artist_name,venue_name, date)
-                venues = Venue.objects.filter()
-                
     except Exception as e: 
             print('Error fetching shows')
             print(e)
 
 
 if __name__ == "__main__":
-    get_show_info(requests)
+    get_data(requests)
