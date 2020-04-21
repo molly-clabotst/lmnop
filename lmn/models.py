@@ -22,6 +22,13 @@ class Artist(models.Model):
 
     def __str__(self):
         return "Artist: " + self.name
+    
+class ArtistsInplay(models.Model):
+    name = models.CharField(max_length=200,blank=False)
+    support_artist = models.BooleanField(default=False)
+
+    def __str__(self):
+        return 'ArtistsInplay name: {}, {} role' .format(self.name, self.support_artist )
 
 
 ''' A venue, that hosts shows. '''
