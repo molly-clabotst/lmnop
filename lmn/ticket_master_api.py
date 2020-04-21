@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 from django.db import models
 
-from .models import Venue, Artist
+from .models import Venue, Artist, Show
 
 event_url ='https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music'
 venue_url = 'https://app.ticketmaster.com/discovery/v2/venues'
@@ -18,7 +18,7 @@ def get_data(requests):
 
         get_artist(events)
         get_venue(venues)
-#        get_shows(events)
+        get_shows(events)
         return HttpResponse('ok')
         # gettign artist, venues and shows and providing an httpresponse if successful
     except Exception as e:
@@ -62,9 +62,12 @@ def get_venue(venues):
     venues_names = [] # Create an empty list to store previously created venues.
 
     for venue in venues: # finds each venue in the json response
-        venues_names += venue # adds the venues to a list 
-        if venue not in venues_names: # checks for duplicates of venues 
-            venue_name = venue['name'] # assigning a variable to the venue_name
+        venue_name = venue['name'] # assigning a variable to the venue_name
+        filtered_venue = Venue.objects.filter(name=venue_name)
+        print(filtered_venue)
+        if(filtered_venue):
+            print('Already added')
+        else:
             venue_city = venue['city']['name'] # finding value for the venue city
             venue_state = venue['state']['name'] # assigning value for the venue state
             venue_new = Venue(name=venue_name, city=venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
