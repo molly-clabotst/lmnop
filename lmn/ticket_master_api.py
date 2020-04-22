@@ -17,7 +17,7 @@ def get_data(requests):
         events = event_response()
 
         get_artist(events)
-        get_venue(venues)
+        # get_venue(venues)
         get_shows(events)
         return HttpResponse('ok')
         # gettign artist, venues and shows and providing an httpresponse if successful
@@ -48,14 +48,17 @@ def get_artist(events):
     for event in events: # Cycles through the JSON and finds the event names, Better to use a for than a range, take note of that. 
         artist_name = (event['name'])
         artist_names += artist_name
+        filtered_artist = Artist.objects.filter(name=artist_name)
+        
+        if artist_name not in artist_names: # Makes sure there are no duplicates.
 
-        if artist_name not in artist_names: # Makes sure there are no duplicates. 
-            print(artist_name)
-            new_artist =Artist(name=artist_name)
-            new_artist.save()
+            if (filtered_artist):    
+                print('duplicate artist') # Maybe put something more meaningful here?      
 
-        else:
-            print('duplicate artist') # Maybe put something more meaningful here?
+            else:
+                print(artist_name)
+                new_artist =Artist(name=artist_name)
+                new_artist.save()
 
 def get_venue(venues):
 
@@ -63,8 +66,9 @@ def get_venue(venues):
 
     for venue in venues: # finds each venue in the json response
         venue_name = venue['name'] # assigning a variable to the venue_name
-        filtered_venue = Venue.objects.filter(name=venue_name)
-        print(filtered_venue)
+        venue_name += venue_name
+        filtered_venue = Venue.objects.filter(name=venue_name) # Makes sure that only venues that are not already in the table.
+        
         if(filtered_venue):
             print('Already added')
         else:
@@ -81,8 +85,17 @@ def get_shows(events):
         artist_name = event['name']
         venue_name = event['_embedded']['venues'][0]['name']
         date = event['dates']['start']['dateTime']
-        event_new = Show(show_date=date, artist=artist_name, venue=venue_name)
-        print(artist_name,venue_name, date)
+        # grabbing the Artist object and the Venue object from the database. 
+        filtered_artist = Artist.objects.filter(name=artist_name)
+        filtered_venue = Venue.objects.filter(name=venue_name)
+
+        if (filtered_artist) and (filtered_venue):
+            artist = filtered_artist[0]
+            venue = filtered_venue[0]
+            event_new = Show(show_date=date, artist=artist, venue=venue)
+            print(artist_name,venue_name, date)
+        else:
+            print('No shows.')
 
 
 
