@@ -15,13 +15,6 @@
 <a href="{% url 'lmn:artist_list' %}">Artists</a>
 <a href="{% url 'lmn:latest_notes' %}">Notes</a>
 
-{% if messages %}
-  {% for message in messages %}
-    <script>M.toast({html: "{{message}}", classes: 'blue rounded', 
-      displayLength:2000});</script>
-  {% endfor %}
-{% endif %}
-
 {% if user.is_authenticated %}
   <span id='welcome_user_msg'>You are logged in, <a href="{% url 'lmn:user_profile' user_pk=user.pk %}">{{ user.username }}</a>.  <a href="{% url 'lmn:logout' %}">Logout</a></span>
 
