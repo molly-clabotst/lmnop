@@ -6,6 +6,7 @@ from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 def user_profile(request, user_pk):
@@ -37,3 +38,12 @@ def register(request):
     else:
         form = UserRegistrationForm()
         return render(request, 'registration/register.html', { 'form': form } )
+
+
+def logout_request(request):
+    logout(request)
+    form = UserRegistrationForm(request.POST)
+    username = form.cleaned_data.get('username')
+    messages.info(request, f'Goodbye {username}')
+
+    return redirect('lmn:homepage')
