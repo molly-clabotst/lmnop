@@ -1,5 +1,6 @@
 from django import forms
-from .models import Note
+from .models import Note, Artist, Venue
+from dal import autocomplete
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -7,11 +8,19 @@ from django.forms import ValidationError
 
 
 class VenueSearchForm(forms.Form):
-    search_name = forms.CharField(label='Venue Name', max_length=200)
+    search_name = forms.CharField(label='Venue Name', max_length=200, queryset=Venue.objects.all(),
+    widget=autocomplete.ModelSelect2(url = 'venue-autocomplete'))
+    class Meta:
+        model = Venue
+        fields = ('__all__')
 
 
 class ArtistSearchForm(forms.Form):
-    search_name = forms.CharField(label='Artist Name', max_length=200)
+    search_name = forms.CharField(label='Artist Name', max_length=200, queryset=Artist.objects.all(),
+    widget=autocomplete.ModelSelect2(url='artist-autocomplete'))
+    class Meta:
+        model = Artist
+        fields = ('__all__')
 
 
 class NewNoteForm(forms.ModelForm):
