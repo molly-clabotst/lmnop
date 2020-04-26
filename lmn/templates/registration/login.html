@@ -1,14 +1,6 @@
 {% extends 'lmn/base.html' %}
 
 {% block content %}
-
-{% if messages %}
-  {% for message in messages %}
-    <script>M.toast({html: "{{message}}", classes: 'blue rounded', 
-      displayLength:2000});</script>
-  {% endfor %}
-{% endif %}
-
   <h2>Log in</h2>
 
   <form method='POST' action="">{% csrf_token %}

@@ -1,7 +1,11 @@
 {% extends 'lmn/base.html' %}
 {% block content %}
 
-
+{% if messages %}
+  {% for message in messages %}
+    <span> {{ message }} </span>
+  {% endfor %}
+{% endif %}
 <!-- A user's profile page.
 
 Includes list of user's notes with title and preview of text.
