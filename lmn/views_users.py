@@ -38,12 +38,3 @@ def register(request):
     else:
         form = UserRegistrationForm()
         return render(request, 'registration/register.html', { 'form': form } )
-
-
-def logout_request(request):
-    logout(request)
-    form = UserRegistrationForm(request.POST)
-    username = form.cleaned_data.get('username')
-    messages.info(request, f'Goodbye {username}')
-
-    return redirect('lmn:homepage')
