@@ -6,7 +6,8 @@ from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 
 @login_required
@@ -46,3 +47,19 @@ def notes_for_show(request, show_pk):   # pk = show pk
 def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+
+
+@login_required
+def edit_delete_own_note(request, note_pk):
+    '''Resolved user should be able to delete own note'''
+    print(f'Note: {note_pk}') # display associated primary key
+    instance = get_object_or_404(Note, pk=note_pk)
+    if request.user == instance.user: #confirm user own note
+        instance.delete() #delete note and commit data
+        # message when deleted
+        messages.success(request, 'Note is successfully deleted!')
+        return redirect('lmn:latest_notes')
+    else:
+        # raised error, message when denied
+        raise PermissionDenied('Sorry! Own note can only be deleted!')
+        return redirect('lmn:latest_notes')

@@ -20,6 +20,7 @@ urlpatterns = [
     path('notes/detail/<int:note_pk>/', views_notes.note_detail, name='note_detail'),
     path('notes/for_show/<int:show_pk>/', views_notes.notes_for_show, name='notes_for_show'),
     path('notes/add/<int:show_pk>/', views_notes.new_note, name='new_note'),
+    path('notes/delete/<int:note_pk>', views_notes.edit_delete_own_note, name='edit_delete_own_note'),
 
     # Artist related
     path('artists/list/', views_artists.artist_list, name='artist_list'),
@@ -29,7 +30,7 @@ urlpatterns = [
     # User related
     path('user/profile/<int:user_pk>/', views_users.user_profile, name='user_profile'),
     path('user/profile/', views_users.my_user_profile, name='my_user_profile'),
-    path('user/logout/', views_users.logout_request, name='logout'),
+#path('user/logout/', views_users.logout_request, name='logout'),
 
     # Account related
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
