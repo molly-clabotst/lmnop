@@ -29,9 +29,10 @@ def new_note(request, show_pk):
 
     return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
 
-
+#Fitched the note from the database if user is athenticated.
+@login_required
 def latest_notes(request):
-    notes = Note.objects.all().order_by('-posted_date')
+    notes = Note.objects.all(user=request.user).order_by('-posted_date')
     return render(request, 'lmn/notes/note_list.html', { 'notes': notes })
 
 
@@ -46,3 +47,4 @@ def notes_for_show(request, show_pk):   # pk = show pk
 def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+
