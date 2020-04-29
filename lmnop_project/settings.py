@@ -90,13 +90,17 @@ DATABASES = {
 
     # When you use Postgres, comment out or remove this DB config. 
     
-   # 'default': {
-   #     'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': 'lmnop.sqlite',
-   # }
 }
 if not os.getenv('GAE_INSTANCE'):
-    DATABASES ['default']['HOST'] = '127.0.0.1'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'lmnop.sqlite',
+        }
+    }
+
+# if not os.getenv('GAE_INSTANCE'):
+    # DATABASES ['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
