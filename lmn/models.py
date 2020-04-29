@@ -17,9 +17,6 @@ User._meta.get_field('first_name')._blank = False
 
 class UserProfile(models.Model):
     user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
-    firstName = models.ForeignKey('lmn.first_name',blank=False, on_delete=models.CASCADE)
-    lastName = models.ForeignKey('lmn.last_name', blank=False, on_delete=models.CASCADE)
-    email = models.ForeignKey('lmn.email', blank=False, on_delete=models.CASCADE)
     favArtist = models.CharField(max_length=200, blank=True)
     favShow = models.CharField(max_length=200, blank=True)
     favVenue = models.CharField(max_length=200, blank=True)
