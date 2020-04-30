@@ -1,12 +1,6 @@
 *.pyc
 __pycache__
-<<<<<<< HEAD
-venv
-
-"Postgres PW : qcdq7Hs218q5ejP5"
-"Sql User Info": user : 'rocker' Password : '3f32f4361r'
-=======
 env
 lmnop.sqlite
-migrations
->>>>>>> master
+venv
+.vscode
