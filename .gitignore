@@ -3,3 +3,5 @@ __pycache__
 env
 lmnop.sqlite
 .vscode
+venv
+cloud_sql_proxy

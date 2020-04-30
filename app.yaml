@@ -2,8 +2,8 @@ runtime: python37
 entrypoint: gunicorn -b :$PORT lmnop_project.wsgi
 
 handlers:
-- url: /static
-  static_dir: www/static/
+- url: /lmnop
+  static_dir: /lmnop/static
 
 - url: /.*
   script: auto

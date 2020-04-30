@@ -51,6 +51,7 @@ class Note(models.Model):
     title = models.CharField(max_length=200, blank=False)
     text = models.TextField(max_length=1000, blank=False)
     posted_date = models.DateTimeField(blank=False, auto_now=True)
+    photo = models.ImageField(upload_to='user_images/', blank=True, null=True)
 
     def publish(self):
         posted_date = datetime.datetime.today()
