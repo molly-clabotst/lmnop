@@ -1,0 +1,12 @@
+{% extends 'lmn/base.html' %}
+{% block content %}
+
+{% if messages %}
+    <h2 id="most_note">Notes for {{ show.note.}}</h2>
+{% for message in messages %}
+{{message}}
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}

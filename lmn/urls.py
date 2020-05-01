@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, views_artists, views_venues, views_notes, views_users
+from . import views, views_artists, views_venues, views_notes, views_users, views_shows
 
 from django.contrib.auth import views as auth_views
 
@@ -15,11 +15,15 @@ urlpatterns = [
     path('venues/detail/<int:venue_pk>/', views_venues.venue_detail, name='venue_detail'),
     path('venues/artists_at/<int:venue_pk>/', views_venues.artists_at_venue, name='artists_at_venue'),
 
+    #show related
+    path('shows/with_most_notes/', views_shows.show_with_most_notes, name='show_with_most_notes'),
+
     # Note related
     path('notes/latest/', views_notes.latest_notes, name='latest_notes'),
     path('notes/detail/<int:note_pk>/', views_notes.note_detail, name='note_detail'),
     path('notes/for_show/<int:show_pk>/', views_notes.notes_for_show, name='notes_for_show'),
     path('notes/add/<int:show_pk>/', views_notes.new_note, name='new_note'),
+    
 
     # Artist related
     path('artists/list/', views_artists.artist_list, name='artist_list'),
