@@ -7,7 +7,8 @@
 {% else %}
   <h2>Latest Notes</h2>
 {% endif %}
-<P class="show_most_notes"><a href="{% url 'lmn:show_with_most_notes' %}">Show with the most notes</a></p>
+
+<h2><a href="{% url 'lmn:show_with_most_notes' %}">Shows with the most notes</a></h2>
 
 {% for note in notes %}
 

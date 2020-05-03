@@ -2,10 +2,11 @@
 {% block content %}
 
 {% if messages %}
-    <h2 id="most_note">Notes for {{ show.note.}}</h2>
+    <h2 id="most_note">The most reviewed shows {{ show.note.}}</h2>
 {% for message in messages %}
 {{message}}
 {% endfor %}
+
 {% endif %}
 
 
