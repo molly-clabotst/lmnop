@@ -1,6 +1,5 @@
 *.pyc
 __pycache__
-venv
-lmnopEnv
+lmnEnv
 lmnop.sqlite
 .coverage
