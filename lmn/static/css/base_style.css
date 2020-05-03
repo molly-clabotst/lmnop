@@ -3,6 +3,12 @@ body {
   background: #394343;
   color: antiquewhite;
 }
+.body_container{
+  margin-left:20px;
+  margin-right:20px;
+  padding-left:50px;
+  padding-right:50px;
+}
 
 a {
   color: lightcoral;
