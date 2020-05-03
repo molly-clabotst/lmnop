@@ -24,3 +24,11 @@ sqlparse==0.3.1
 urllib3==1.25.8
 gunicorn ==19.9.0
 
+asgiref==3.2.7
+dal-admin-filters==0.3.3
+Django==3.0.5
+django-autocomplete-light==3.5.1
+psycopg2==2.8.5
+pytz==2019.3
+six==1.14.0
+sqlparse==0.3.1
