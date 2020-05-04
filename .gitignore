@@ -3,3 +3,5 @@ __pycache__
 lmnEnv
 lmnop.sqlite
 .coverage
+migrate
+.vscode
