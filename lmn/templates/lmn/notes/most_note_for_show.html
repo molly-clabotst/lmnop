@@ -1,13 +1,20 @@
 {% extends 'lmn/base.html' %}
 {% block content %}
 
-{% if messages %}
-    <h2 id="most_note">The most reviewed shows {{ show.note.}}</h2>
-{% for message in messages %}
-{{message}}
+{% if note %}
+    <h2 id="most_note">The most reviewed shows {{ show.note }}</h2>
+{% else %}
+    <h2>Shows with the most notes</h2>
+{% endif %}
+{% for not in notes %}
+<div id="note_{{ note.pk }}">
+    <h3>{{ note.title }}</h3>
+    <p><a href="{% url 'lmn:show_with_most_notes' show_pk=note.show.pk %}">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</a></p></p>
+{% empty %}
+<p>No notes.</p>
+
 {% endfor %}
 
-{% endif %}
 
 
 {% endblock %}
