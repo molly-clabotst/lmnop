@@ -6,6 +6,7 @@ from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseForbidden
 
 
 
@@ -46,3 +47,17 @@ def notes_for_show(request, show_pk):   # pk = show pk
 def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+
+
+def user_view_own_notes(request):
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+        note = get_object_or_404(Note, pk=pk)
+        print(note.user, request.user)
+        if note.user == request.user:
+            note.show = True
+            note.save()
+        else:
+            return HttpResponseForbidden()
+    return render(request, 'lmn/users/user_profile.html', {'note': note})
+    
