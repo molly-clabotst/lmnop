@@ -3,28 +3,9 @@
 
 <h2>Shows with the most notes</h2>
 
-<div id="artist_{{ artist.pk }}">
-<h2 id="note_page_title">{{ note.show.artist.name }}  {{ note.show.venue.name }}</h2>
+<h2 id="note_page_title">{{ note.show.artist.name }}</h2>
 
 <p id="note_title"><b>{{ note.title}}</b></p>
 <p id="note_text">{{ note.text }}</b>
-
-<!-- {% if show %}
-
-{% else %}
-    <h2>Shows with the most notes</h2>
-{% endif %}
-{% for show in shows %}
-<div id="show_{{ show.pk }}">
-    <h3>{{ show.artist }}</h3>
-    <p><a href="{% url 'lmn:show_with_most_notes' show_pk=note.show.pk %}">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</a></p></p>
-
-{% empty %}
-
-<p>No notes.</p>
-
-{% endfor %} -->
-
-
 
 {% endblock %}
