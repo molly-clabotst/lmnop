@@ -3,9 +3,12 @@
 
 <h2>The most Reviewed shows</h2>
 
-<h2 id="note_page_title">{{ note.show.artist.name }}</h2>
+{% for show in shows %}
 
-<p id="note_title"><b>{{ note.title}}</b></p>
-<p id="note_text">{{ note.text }}</b>
+<div id="show_{{ show.pk }}">
+  <h3 class="note_title">{{ show.artist.name }}</h3>
+  <p class='note_text'>{{ note.text|truncatechars:100 }}</p>
+  <hr>
+{% endfor %}
 
 {% endblock %}
