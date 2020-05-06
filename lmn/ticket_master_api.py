@@ -17,7 +17,7 @@ def get_data(requests):
         events = event_response()
 
         get_artist(events)
-        # get_venue(venues)
+        get_venue(venues)
         get_shows(events)
         return HttpResponse('ok')
         # gettign artist, venues and shows and providing an httpresponse if successful
