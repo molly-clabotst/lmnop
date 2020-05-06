@@ -55,7 +55,7 @@ def user_view_own_notes(request):
         note = get_object_or_404(Note, pk=pk)
         print(note.user, request.user)
         if note.user == request.user:
-            note.show = True
+            #note.show = True
             note.save()
         else:
             return HttpResponseForbidden()
