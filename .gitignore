@@ -1,4 +1,7 @@
 *.pyc
 __pycache__
-lmnEnv
+
+env
 lmnop.sqlite
+.vscode
+
