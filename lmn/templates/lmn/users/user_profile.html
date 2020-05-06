@@ -2,13 +2,29 @@
 {% block content %}
 
 
-<!-- A user's profile page.
 
-Includes list of user's notes with title and preview of text.
+<!-- A user's profile page. -->
+
+
+<h2 id='username_notes'>{{ user.username }}</h2>
+
+{% if userProfile.fav_artist or userProfile.favShow or userProfile.favVenue %}
+  <div class="favs">
+    <h3 class="fav_title">Favorites</h3>
+    <p id="fav_artist_title">Artist</p>
+    <p id="fav_artist">{{ userProfile.favArtist }}</p>
+    <p id="fav_show_title">Show</p>
+    <p id="fav_show">{{ userProfile.favShow }}</p>
+    <p id="fav_venue_title">Venue</p>
+    <p id="fav_venue">{{ userProfile.favVenue }}</p>
+  </div>
+{% else %}
+  <p>No Favorites</p>
+{% endif %}
+
+
+<!-- Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
-
-<h2 id='username_notes'>{{ user.username }}'s notes</h2>
-
 {% for note in notes %}
 
 <div class='note' id="note_{{ note.pk }}">

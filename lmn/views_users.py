@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Venue, Artist, Note, Show
+from .models import Venue, Artist, Note, Show, UserProfile
 from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm
 
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 def user_profile(request, user_pk):
     user = User.objects.get(pk=user_pk)
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
+    favorites = UserProfile.objects.filter(user=user.pk)
     return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes })
 
 
