@@ -4,4 +4,4 @@ lmnEnv
 .vscode
 lmnop.sqlite
 .coverage
-migrate
+migrations
