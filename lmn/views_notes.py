@@ -48,21 +48,22 @@ def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
 
+"""user can search fro their own note by specific title"""
 @login_required
-def user_view_own_notes(request):
+def user_view_own_notes(request, user_pk):
     user = User.objects.get(pk=user_pk)
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': 
+    return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': usernotes }) 
     
-    """
-    if request.method == 'POST':
-        pk = request.POST.get('pk')
-        note = get_object_or_404(Note, pk=pk)
-        print(note.user, request.user)
-        if note.user == request.user:
-            #note.show = True
-            note.save()
-        else:
-            return HttpResponseForbidden()
-    return render(request, 'lmn/users/user_profile.html', {'note': note})
-    """
+    
+    # if request.method == 'POST':
+    #     pk = request.POST.get('pk')
+    #     note = get_object_or_404(Note, pk=pk)
+    #     print(note.user, request.user)
+    #     if note.user == request.user:
+    #         #note.show = True
+    #         note.save()
+    #     else:
+    #         return HttpResponseForbidden()
+    # return render(request, 'lmn/users/user_profile.html', {'note': note})
+    
