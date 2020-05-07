@@ -7,14 +7,14 @@
 
 <div class='note' id="note_{{ note.pk }}">
   <h3 class="note_title"><a href="{% url 'lmn:note_detail' note_pk=note.pk %}">{{ note.title }}</a></h3>
-  <P class="note_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</P>
+  <!-- <P class="note_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</P>
   <p class="note_text">{{ note.text|truncatechars:300}}</p>
-  <p class="note_posted_at">{{ note.posted_date}}</p>
+  <p class="note_posted_at">{{ note.posted_date}}</p> -->
 </div>
 
 {% empty %}
 
-    <p id='no_records'>No notes.</p>
+    <p id='no_title'>No title records.</p>
 
 {% endfor %}
 
