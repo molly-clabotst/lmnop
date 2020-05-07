@@ -8,6 +8,11 @@ Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
 
 <span><h2 id='username_notes'>{{ user.username }}'s notes</h2></span>Search by title</p>form go here</span>
+<p>
+  <form action="{% url 'lmn:user_view_own_notes' user_pk=user.pk %}">
+    {{search_form}}
+  <button type="submit">Search!</button>
+  </form>
 
 {% for note in notes %}
 
