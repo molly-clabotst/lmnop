@@ -94,6 +94,7 @@ def get_shows(events):
             venue = filtered_venue[0]
             event_new = Show(show_date=date, artist=artist, venue=venue)
             print(artist_name,venue_name, date)
+            event_new.save() # Needed this one
         else:
             print('No shows.')
 
