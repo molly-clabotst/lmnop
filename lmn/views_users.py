@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
 
 from .models import Venue, Artist, Note, Show
-from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm
+from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm, UserSearchOwnNotesForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 
+# This is the function called for /users/profile/100  (for example) 
 def user_profile(request, user_pk):
     user = User.objects.get(pk=user_pk)
+    user_search_title = UserSearchOwnNotesForm()
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes })
+    return render(request, 'lmn/users/user_profile.html', { 'user': user , 'notes': usernotes, 'search_form': user_search_title })
 
 
 @login_required

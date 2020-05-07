@@ -50,8 +50,11 @@ def note_detail(request, note_pk):
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
 
 """user can search fro their own note by specific title"""
-@login_required
+
 def user_view_own_notes(request, user_pk):
+    # TODO if user has made a search, what did they search for? 
+    # usernotes = Note.objects.filter(user=user.pk).filter( by title ).order_by('-posted_date')
+    
     user_search_title = UserSearchOwnNotesForm()
     user = User.objects.get(pk=user_pk)
     usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
