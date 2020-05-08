@@ -66,7 +66,7 @@ def get_venue(venues):
 
     for venue in venues: # finds each venue in the json response
         venue_name = venue['name'] # assigning a variable to the venue_name
-        venue_name += venue_name
+        venues_names += venue_name
         filtered_venue = Venue.objects.filter(name=venue_name) # Makes sure that only venues that are not already in the table.
         
         if(filtered_venue):
