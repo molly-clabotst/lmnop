@@ -1,7 +1,11 @@
 {% extends 'lmn/base.html' %}
 {% block contents %}
 
+{% if show %}
 <h2 id='username_notes'>{{ user.username }}'s notes by title</h2>
+{% else %}
+  <h2>Show by title</h2>
+{% endif%}
 
 {% for note in notes %}
 
