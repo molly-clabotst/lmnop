@@ -2,7 +2,8 @@
 {% block contents %}
 
 {% if show %}
-<h2 id='username_notes'>{{ user.username }}'s notes by title</h2>
+<!-- <h2 id='username_notes'>{{ user.username }}'s notes by title</h2> -->
+<h2 id="note_page_title">{{ note.show.artist.name }} at {{ note.show.venue.name }} by <a href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ user.username }}</a></h2>
 {% else %}
   <h2>Show by title</h2>
 {% endif%}
@@ -10,10 +11,9 @@
 {% for note in notes %}
 
 <div class='note' id="note_{{ note.pk }}">
-  <h3 class="note_title"><a href="{% url 'lmn:note_detail' note_pk=note.pk %}">{{ note.title }}</a></h3>
-  <!-- <P class="note_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</P>
-  <p class="note_text">{{ note.text|truncatechars:300}}</p>
-  <p class="note_posted_at">{{ note.posted_date}}</p> -->
+  <h3 class="note_title"><a href="{% url 'lmn:user_view_own_notes' note_pk=note.pk %}">{{ note.title }}</a></h3>
+  <!-- <p class="note_text">{{ note.text|truncatechars:300}}</p>
+  <p class="note_posted_at">{{ note.posted_date}}</p>  -->
 </div>
 
 {% empty %}
