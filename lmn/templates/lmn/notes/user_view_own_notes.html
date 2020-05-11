@@ -1,24 +1,31 @@
 {% extends 'lmn/base.html' %}
 {% block contents %}
+<h2>Note Search Result by titlelist</h2>
 
-{% if show %}
-<!-- <h2 id='username_notes'>{{ user.username }}'s notes by title</h2> -->
-<h2 id="note_page_title">{{ note.show.artist.name }} at {{ note.show.venue.name }} by <a href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ user.username }}</a></h2>
+{% if search_form %}
+  <h2 class="note_title">Matching titles'{{ search_form}}'<a href="{% url 'lmn:user_profile'%}" id='clear_search'>(clear)</a></h2>
+{% else %}
+  <h2 class="note_title">All titles</h2>
+{% endif %}
+
+<!--{% if show %}
+<h2 id='username_notes'>{{ user.username }}'s notes by title</h2>
+ <h2 id="note_page_title">{{ note.show.artist.name }} at {{ note.show.venue.name }} by <a href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ user.username }}</a></h2>
 {% else %}
   <h2>Show by title</h2>
-{% endif%}
+{% endif%}-->
 
 {% for note in notes %}
 
 <div class='note' id="note_{{ note.pk }}">
   <h3 class="note_title"><a href="{% url 'lmn:user_view_own_notes' note_pk=note.pk %}">{{ note.title }}</a></h3>
-  <!-- <p class="note_text">{{ note.text|truncatechars:300}}</p>
-  <p class="note_posted_at">{{ note.posted_date}}</p>  -->
+  <p class="note_text">{{ note.text|truncatechars:300}}</p>
+  <p class="note_posted_at">{{ note.posted_date}}</p> 
 </div>
 
 {% empty %}
 
-    <p id='no_title'>No title records.</p>
+  <p id='no_title'>No title records.</p>
 
 {% endfor %}
 
