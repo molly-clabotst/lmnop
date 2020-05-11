@@ -53,10 +53,15 @@ def note_detail(request, note_pk):
 def user_view_own_notes(request, user_pk):
     #TODO if user has made a search, what di they search for ?
     #usernotes = Note.objects.filter(user=user_pk).filter(by title).order_by('-posted_date')
-
     user_search_title = UserSearchOwnNotesForm()
+    usernotes = ''
     user = User.objects.get(pk=user_pk,)
+    if user_search_title.is_valid():
+        usernotes = user_search_title.cleaned_data['usernotes']
     #usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-    usernotes = Note.objects.filter(user=user_pk).filter(title='?').order_by('-title')
+        user = Note.objects.filter(name__icontains=usernotes)
+    else:
+        user = user_search_title.object.all()
+    user_search_title = user_search_title()
     return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': usernotes, 'search_form': user_search_title }) 
        
