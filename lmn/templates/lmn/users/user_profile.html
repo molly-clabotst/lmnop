@@ -8,19 +8,21 @@
 
 <h2 id='username_notes'>{{ user.username }}</h2>
 
-{% if userProfile.fav_artist or userProfile.favShow or userProfile.favVenue %}
+{% for favorite in favorites %}
   <div class="favs">
-    <h3 class="fav_title">Favorites</h3>
-    <p id="fav_artist_title">Artist</p>
-    <p id="fav_artist">{{ userProfile.favArtist }}</p>
-    <p id="fav_show_title">Show</p>
-    <p id="fav_show">{{ userProfile.favShow }}</p>
-    <p id="fav_venue_title">Venue</p>
-    <p id="fav_venue">{{ userProfile.favVenue }}</p>
+    <h3 class="fav_entry">Favorites</h3>
+    <h4 id="fav_artist_entry">Artist:</h4>
+    <p class="f_entry" id="fav_artist">{{ favorite.favArtist }}</p>
+    <h4 id="fav_show_entry">Show:</h4>
+    <p class="f_entry" id="fav_show">{{ favorite.favShow }}</p>
+    <h4 id="fav_venue_entry">Venue:</h4>
+    <p class="f_entry" id="fav_venue">{{ favorite.favVenue }}</p>
   </div>
-{% else %}
-  <p>No Favorites</p>
-{% endif %}
+
+{% empty %}
+  <p>Fuck you youssef</p>
+{% endfor %}
+
 
 
 <!-- Includes list of user's notes with title and preview of text.

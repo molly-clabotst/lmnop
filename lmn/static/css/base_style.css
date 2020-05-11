@@ -11,7 +11,7 @@ a {
 #welcome_user_msg, #login_or_sign_up {
   position: absolute;
   right: 0px;
-  padding-right: 10px;
+  /* padding-right: 10px; */
 }
 
 #login_form.tr, #registration_form.tr {
@@ -21,4 +21,21 @@ a {
 
 #login_form.th, #registration_form.th {
   text-align: right;
+}
+
+.f_entry {
+  position: absolute;
+  left: 100px;
+}
+
+#fav_artist {
+  top: 154px;
+}
+
+#fav_show {
+  top: 187px;
+}
+
+#fav_venue {
+  top: 219px;
 }
