@@ -52,16 +52,13 @@ def note_detail(request, note_pk):
 """user can search fro their own note by specific title"""
 def user_view_own_notes(request, user_pk):
     #TODO if user has made a search, what di they search for ?
-    #usernotes = Note.objects.filter(user=user_pk).filter(by title).order_by('-posted_date')
-    user_search_title = UserSearchOwnNotesForm()
-    usernotes = ''
+    user_search_title_form = UserSearchOwnNotesForm()
+    search_title = ''
     user = User.objects.get(pk=user_pk,)
-    if user_search_title.is_valid():
-        usernotes = user_search_title.cleaned_data['usernotes']
-    #usernotes = Note.objects.filter(user=user.pk).order_by('-posted_date')
-        user = Note.objects.filter(name__icontains=usernotes)
+    if user_search_title_form.is_valid():
+        search_title = user_search_title_form.cleaned_data['usernotes']
+        notes = Note.objects.filter(title__icontains=search_title)
     else:
-        user = user_search_title.object.all()
-    user_search_title = user_search_title()
-    return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': usernotes, 'search_form': user_search_title }) 
+        notes = Note.objects.all()   
+    return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': notes, 'search_form': user_search_title_form }) 
        
