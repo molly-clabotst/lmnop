@@ -52,6 +52,16 @@ class Note(models.Model):
     text = models.TextField(max_length=1000, blank=False)
     posted_date = models.DateTimeField(blank=False, auto_now=True)
     photo = models.ImageField(upload_to='user_images/', blank=True, null=True)
+    
+    
+    def save(self, *args, **kwargs):
+
+        prev_note = Note.objects.filter(pk=self.pk).first()
+        if prev_note and prev_note.photo:
+            if prev_note.photo != self.photo:
+                self.delete_photo(prev_note.photo)
+        super().save(*args, **kwargs)
+
 
     def publish(self):
         posted_date = datetime.datetime.today()

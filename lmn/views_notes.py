@@ -7,8 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib import messages
 
-
+from django.views.generic import ListView, CreateView 
+from django.urls import reverse_lazy
 @login_required
 def new_note(request, show_pk):
 
@@ -44,5 +46,6 @@ def notes_for_show(request, show_pk):   # pk = show pk
 
 
 def note_detail(request, note_pk):
+    # Render object takes 3 arguments. request object (POST,PUSH, GET, DELETE) , a template name (file location of the template) and a dictionary , refered to as 'context' variable in DJ tutorial
     note = get_object_or_404(Note, pk=note_pk)
     return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
