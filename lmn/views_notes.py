@@ -1,16 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Venue, Artist, Note, Show
-from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm
+from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm, NoteEditPhotoForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
 
-from django.contrib import messages
-
-from django.views.generic import ListView, CreateView 
-from django.urls import reverse_lazy
 @login_required
 def new_note(request, show_pk):
 
@@ -19,7 +16,9 @@ def new_note(request, show_pk):
     if request.method == 'POST' :
 
         form = NewNoteForm(request.POST)
+
         if form.is_valid():
+        
             note = form.save(commit=False)
             note.user = request.user
             note.show = show
@@ -30,22 +29,41 @@ def new_note(request, show_pk):
         form = NewNoteForm()
 
     return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
-
-
 def latest_notes(request):
-    notes = Note.objects.all().order_by('-posted_date')
-    return render(request, 'lmn/notes/note_list.html', { 'notes': notes })
+    notes = Note.objects.all().order_by('posted_date')
+    return render(request, 'lmn/notes/note_list.html', {'notes': notes})
 
 
-def notes_for_show(request, show_pk):   # pk = show pk
+def notes_for_show(request, show_pk):  # pk = show pk
 
-    # Notes for show, most recent first
-    notes = Note.objects.filter(show=show_pk).order_by('-posted_date')
-    show = Show.objects.get(pk=show_pk)  
-    return render(request, 'lmn/notes/note_list.html', { 'show': show, 'notes': notes } )
+    notes = Note.objects.filter(show=show_pk).order_by('posted_date')
+    show = Show.objects.get(pk=show_pk)
+    return render(request, 'lmn/notes/note_list.html', {'show': show, 'notes': notes})
 
 
 def note_detail(request, note_pk):
-    # Render object takes 3 arguments. request object (POST,PUSH, GET, DELETE) , a template name (file location of the template) and a dictionary , refered to as 'context' variable in DJ tutorial
     note = get_object_or_404(Note, pk=note_pk)
-    return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+
+    if request.method == 'POST':
+        photo_form = NoteEditPhotoForm(request.POST, request.FILES, instance=note)
+
+        if photo_form.is_valid():
+            photo_form.save()
+
+        return redirect('lmn:note_detail', note_pk=note_pk)
+    else:
+        photo_form = NoteEditPhotoForm(instance=note)
+    return render(request, 'lmn/notes/note_detail.html', {'note': note, 'photo_form': photo_form})
+
+
+
+def delete_note(request, note_pk):
+    note = get_object_or_404(Note, pk=note_pk)
+
+    if request.method == 'POST':
+        note.delete()
+        return redirect('lmn:latest_notes')
+    context = {
+        'note': note,
+    }
+    return render(request, 'lmn/notes/delete_note.html', context)

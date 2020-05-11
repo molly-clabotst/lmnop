@@ -1,0 +1,20 @@
+<!-- 
+    This page allows the user to edit their notes and update them.
+ -->
+ {% extends 'lmn/base.html' %}
+ {% block content %}
+ 
+ 
+ <h2 id="note_page_title">{{ note.show.artist.name }} at {{ note.show.venue.name }} by <a href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ user.username }}</a></h2>
+ 
+     <form method="POST" action="{% url 'lmn:edit_note' note_pk=note.pk %}">{% csrf_token %}
+         {{ form.as_p }}
+         <P>
+         <input type='submit' value='Update Note'>
+     </form>
+     <P>
+     <form action="{% url 'lmn:delete_note' note_pk=note.pk %}">
+         <input id="delete_note" type='submit' value='Delete Note'>
+     </form>
+ 
+ {% endblock %}
