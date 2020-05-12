@@ -55,7 +55,7 @@ def get_artist(events):
         if artist_name not in artist_names: # Makes sure there are no duplicates.
 
             if (filtered_artist):    
-                print('duplicate artist') # Maybe put something more meaningful here?      
+                HttpResponse('duplicate artist') # Maybe put something more meaningful here?      
 
             else:
                 print(artist_name)
@@ -70,13 +70,17 @@ def get_venue(venues):
         venue_name = venue['name'] # assigning a variable to the venue_name
         venues_names += venue_name
         filtered_venue = Venue.objects.filter(name=venue_name) # Makes sure that only venues that are not already in the table.
+        venue_state = venue['state']['name'] # assigning value for the venue state
+        venue_statess = stateAbbrevation(venue_state)
+        print(venue_statess)
         
         if(filtered_venue):
             print('Already added')
+
         else:
             venue_city = venue['city']['name'] # finding value for the venue city
             venue_state = venue['state']['name'] # assigning value for the venue state
-            venue_state = stateAbbrevation(venue_state)
+            venue_statess = stateAbbrevation(venue_state)
             venue_new = Venue(name=venue_name, city=venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
             venue_new.save() # Saves the object into the database
             print(venue_name,venue_city,venue_state)
@@ -104,6 +108,7 @@ def stateAbbrevation(state):
 # Had issues getting the Google cloud database to properly migrate changes to the model so this is my work around. 
 # Converts the fullname to an its intials. 
     state_initals = us.states.lookup(state)
+    state_initals = state_initals.abbr
     return state_initals
 
 if __name__ == "__main__":
