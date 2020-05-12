@@ -80,7 +80,7 @@ def get_venue(venues):
         else:
             venue_city = venue['city']['name'] # finding value for the venue city
             venue_state = venue['state']['name'] # assigning value for the venue state
-            venue_statess = stateAbbrevation(venue_state)
+            venue_states = stateAbbrevation(venue_state)
             venue_new = Venue(name=venue_name, city=venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
             venue_new.save() # Saves the object into the database
             print(venue_name,venue_city,venue_state)
