@@ -28,7 +28,7 @@ def register(request):
             user = form.save()
             user = authenticate(username=request.POST['username'], password=request.POST['password1'])
             login(request, user)
-            return redirect('lmn:homepage')
+            return redirect(request.GET['next'])
 
         else :
             message = 'Please check the data you entered'
