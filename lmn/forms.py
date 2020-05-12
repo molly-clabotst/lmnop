@@ -19,6 +19,9 @@ class NewNoteForm(forms.ModelForm):
         model = Note
         fields = ('title', 'text')
 
+class UserSearchOwnNotesForm(forms.Form):
+    search_title = forms.CharField(label='Search by Title', max_length=200)
+
 
 class UserRegistrationForm(UserCreationForm):
 
