@@ -16,6 +16,7 @@ Text truncated to 200 characters. -->
   <P class="note_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</P>
   <p class="note_text">{{ note.text|truncatechars:300}}</p>
   <p class="note_posted_at">{{ note.posted_date}}</p>
+  <p class="note_rating">User rating: {{ note.rating }}</p>
   <h4 class="note_title"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ note.text }} %23{{ note.show.artist.name }} %23{{ note.show.venue.name }} %23LMNOP">Tweet Note</a></h4>
   <p></p>
 </div>
