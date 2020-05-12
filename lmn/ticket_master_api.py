@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 from django.db import models
 
+import us 
+
 from .models import Venue, Artist, Show
 
 event_url ='https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music'
@@ -74,6 +76,7 @@ def get_venue(venues):
         else:
             venue_city = venue['city']['name'] # finding value for the venue city
             venue_state = venue['state']['name'] # assigning value for the venue state
+            venue_state = stateAbbrevation(venue_state)
             venue_new = Venue(name=venue_name, city=venue_city, state=venue_state) # creates a .models/Venue object and assigns the values
             venue_new.save() # Saves the object into the database
             print(venue_name,venue_city,venue_state)
@@ -97,7 +100,11 @@ def get_shows(events):
         else:
             print('No shows.')
 
-
+def stateAbbrevation(state):
+# Had issues getting the Google cloud database to properly migrate changes to the model so this is my work around. 
+# Converts the fullname to an its intials. 
+    state_initals = us.states.lookup(state)
+    return state_initals
 
 if __name__ == "__main__":
     get_data(requests)
