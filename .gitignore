@@ -1,7 +1,14 @@
 *.pyc
 __pycache__
+
 env
 lmnop.sqlite
+
+
 .vscode
+<<<<<<< HEAD
 envlmn
 db.sqlite3
+=======
+
+>>>>>>> master
