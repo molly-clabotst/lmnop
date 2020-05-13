@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, views_artists, views_venues, views_notes, views_users
+from . import views, views_artists, views_venues, views_notes, views_users,ticket_master_api
 
 from django.contrib.auth import views as auth_views
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('notes/detail/<int:note_pk>/', views_notes.note_detail, name='note_detail'),
     path('notes/for_show/<int:show_pk>/', views_notes.notes_for_show, name='notes_for_show'),
     path('notes/add/<int:show_pk>/', views_notes.new_note, name='new_note'),
+    path('notes/user_view_own/<int:user_pk>', views_notes.user_view_own_notes, name='user_view_own_notes'),
 
     # Artist related
     path('artists/list/', views_artists.artist_list, name='artist_list'),
@@ -35,4 +36,6 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('register/', views_users.register, name='register'),
 
+    # Ticketmaster view update 
+    path ('ticketmaster', ticket_master_api.get_data, name = 'admin_get_venues_artists')
 ]

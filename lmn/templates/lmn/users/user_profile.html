@@ -7,7 +7,12 @@
 Includes list of user's notes with title and preview of text.
 Text truncated to 200 characters. -->
 
-<h2 id='username_notes'>{{ user.username }}'s notes</h2>
+<h2 id='username_notes'>{{ user.username }}'s notes</h2><span>Find your note</p></span>
+<p>
+  <form action="{% url 'lmn:user_view_own_notes' user_pk=user.pk %}">
+    {{search_form}}
+  <button type="submit">Search</button>
+  </form>
 
 {% for note in notes %}
 
@@ -17,7 +22,7 @@ Text truncated to 200 characters. -->
   <p class="note_text">{{ note.text|truncatechars:300}}</p>
   <p class="note_posted_at">{{ note.posted_date}}</p>
   <p class="note_rating">User rating: {{ note.rating }}</p>
-  <h4 class="note_title"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ note.text }} %23{{ note.show.artist.name }} %23{{ note.show.venue.name }} %23LMNOP">Tweet Note</a></h4>
+  <h4><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ note.text }} %23{{ note.show.artist.name }} %23{{ note.show.venue.name }} %23LMNOP">Tweet Note</a></h4>
   <p></p>
 </div>
 
