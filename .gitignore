@@ -1,4 +1,4 @@
-*.pyc
+This *.pyc
 __pycache__
 env
 lmnop.sqlite
