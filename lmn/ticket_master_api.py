@@ -13,7 +13,9 @@ venue_url = 'https://app.ticketmaster.com/discovery/v2/venues'
 key = '7CyQJ1JxlnqGBJe0uEkZw9h8SMvjoLQ9'
 
 
+
 def get_data(requests):
+
     try:
         venues = venue_response() # Broke the api calls into two fuctions. Figured this could reduce calls.
         events = event_response()
@@ -28,6 +30,12 @@ def get_data(requests):
             return HttpResponse('failed')
 
 def event_response():
+
+    """Executes and api response to Ticketmaster.com 
+
+    Returns:
+        Dictonary -- A dictonary of values that are retreived from an api call. 
+    """
     query = {'apikey' : key, 'stateCode' : 'MN' }
     try:
         data = requests.get(event_url, params=query).json() # api call for 'music' events with the statecode 'MN'
@@ -35,7 +43,12 @@ def event_response():
         return events
     except Exception as e:
         print(e)
-def venue_response():    
+def venue_response(): 
+    """Executes and api response to Ticketmaster.com 
+
+    Returns:
+        Dictonary -- A dictonary of values that are retreived from an api call. 
+    """   
     try:
         query = {'apikey': key , 'stateCode' : 'MN', 'name' : 'music'}
         data = requests.get(venue_url, params=query).json() # Retrives a JSON from ticketmaster
