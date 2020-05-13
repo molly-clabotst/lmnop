@@ -1,9 +1,8 @@
 {% extends 'lmn/base.html' %}
-{% block contents %}
-<h2>Note Search Result by titlelist</h2>
+{% block content %}
+<h2>Result by search title</h2>
 
 {% if search_form %}
-  <h2 class="note_title">Matching titles'{{ search_form}}'<a href="{% url 'lmn:user_view_own_notes' %}" id='clear_search'>(clear)</a></h2>
 {% else %}
   <h2 class="note_title">All titles</h2>
 {% endif %}
@@ -11,7 +10,7 @@
 {% for note in notes %}
 
 <div class='note' id="note_{{ note.pk }}">
-  <h3 class="note_title"><a href="{% url 'lmn:user_view_own_notes' note_pk=note.pk %}">{{ note.title }}</a></h3>
+  <h3 class="note_title"><a href="{% url 'lmn:note_detail' note_pk=note.pk %}">{{ note.title }}</a></h3>
   <p class="note_text">{{ note.text|truncatechars:300}}</p>
   <p class="note_posted_at">{{ note.posted_date}}</p> 
 </div>

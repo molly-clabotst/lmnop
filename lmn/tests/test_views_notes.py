@@ -41,6 +41,14 @@ class TestNotes(TestCase):
         self.assertEqual(first.pk, 2)
         self.assertEqual(second.pk, 1)
 
+    def test_user_view_own_notes(self):
+        response = self.client.get(reverse('lmn:user_view_own_notes'))
+        context = response.context['notes']
+        first, second, third = context[0], context[1], context[2]
+        self.assertEqual(first.pk, 3)
+        self.assertEqual(second.pk, 2)
+        self.assertEqual(third.pk, 1)
+
 
     def test_correct_templates_uses_for_notes(self):
         response = self.client.get(reverse('lmn:latest_notes'))
@@ -56,3 +64,4 @@ class TestNotes(TestCase):
         self.client.force_login(User.objects.first())
         response = self.client.get(reverse('lmn:new_note', kwargs={'show_pk':1}))
         self.assertTemplateUsed(response, 'lmn/notes/new_note.html')
+    

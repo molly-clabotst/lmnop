@@ -59,6 +59,6 @@ def user_view_own_notes(request, user_pk):
         search_title = user_search_title_form.cleaned_data['usernotes']
         notes = Note.objects.filter(title__icontains=search_title)
     else:
-        notes = Note.objects.all()   
-    return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': notes, 'search_form': user_search_title_form }) 
+        notes = Note.objects.all()  
+        return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': notes, 'search_form': user_search_title_form }) 
        

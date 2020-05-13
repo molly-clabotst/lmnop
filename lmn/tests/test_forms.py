@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
-from lmn.forms import NewNoteForm, UserRegistrationForm
+from lmn.forms import NewNoteForm, UserRegistrationForm, UserSearchOwnNotesForm
 import string
 
 # Test that forms are validating correctly, and don't accept invalid data
@@ -151,3 +151,22 @@ class LoginFormTests(TestCase):
 
     def test_login_valid_username_password_ok(self):
         bob = User()
+
+class UserSearchOwnNotesFormTests(TestCase):
+
+    def test_user_input_with_valid_data_is_valid(self):
+        form_data = {"search_title": "aaaaa"}
+        form = UserSearchOwnNotesForm(form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_user_input_missing_text_is_invalid(self):
+        form_data = {"search_title": "bbbbb"}
+        form = UserSearchOwnNotesForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        invalid_texts = list(string.whitespace) + ['', '\n\n\n', '\t\t\n\t']
+
+        for invalid_text in invalid_texts:
+            form_data = {"search_title": "cccccc", "text": invalid_text}
+            form = UserSearchOwnNotesForm(form_data)
+            self.assertFalse(form.is_valid())
