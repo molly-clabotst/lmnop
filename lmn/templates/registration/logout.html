@@ -3,8 +3,9 @@
 {% block content %}
     <!-- Display message and return user back to the homepage -->
     <script>
+        <meta http-equiv="refresh" content="2; url={% url 'lmn:homepage' %}"/>
         M.toast({ html: 'Succesfully logged out. Goodbye!', classes: 'rounded blue', dsiplayLength: 2000 });
-        location.href = "{% url 'lmn:homepage' %}" 
+
     </script>
 
 {% endblock %}
