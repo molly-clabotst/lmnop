@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def venue_list(request):
     form = VenueSearchForm()
@@ -14,9 +16,20 @@ def venue_list(request):
 
     if search_name:
         #search for this venue, display results
-        venues = Venue.objects.filter(name__icontains=search_name).order_by('name')
+        venue_list = Venue.objects.filter(name__icontains=search_name).order_by('name')
+        page = request.GET.get('page', 1)
     else :
-        venues = Venue.objects.all().order_by('name')   # Todo paginate
+        venue_list = Venue.objects.all().order_by('name')   
+        # Todo paginate
+        page = request.GET.get('page', 1)
+
+    paginator = Paginator(venue_list, 10)#display max of 10 venue list on page
+    try:
+        venues = paginator.page(page)
+    except PageNotAnInteger:
+        venues = paginator.page(1)
+    except EmptyPage:
+        venues = paginator.page(paginator.num_pages)
 
     return render(request, 'lmn/venues/venue_list.html', { 'venues': venues, 'form': form, 'search_term': search_name })
 

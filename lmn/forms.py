@@ -17,7 +17,10 @@ class ArtistSearchForm(forms.Form):
 class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ('title', 'text')
+        fields = ('title', 'text', 'rating')
+
+class UserSearchOwnNotesForm(forms.Form):
+    search_title = forms.CharField(label='Search by Title', max_length=200)
 
 
 class UserRegistrationForm(UserCreationForm):

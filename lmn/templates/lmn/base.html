@@ -3,7 +3,9 @@
 <head>
   <title>LMNOP</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
   <link rel="stylesheet" href="{% static 'css/base_style.css' %}"></link>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
@@ -18,11 +20,13 @@
 <a href="{% url 'lmn:artist_list' %}">Artists</a>
 <a href="{% url 'lmn:latest_notes' %}">Notes</a>
 
+
 {% if user.is_authenticated %}
+  <a href="{% url 'lmn:user_profile' user_pk=user.pk %}">Profile</a>
   <span id='welcome_user_msg'>You are logged in, <a href="{% url 'lmn:user_profile' user_pk=user.pk %}">{{ user.username }}</a>.  <a href="{% url 'lmn:logout' %}">Logout</a></span>
 
 {% else %}
-
+  <a href="{% url 'lmn:login' %}?next={{ request.path }}">Profile</a>
   <span id='login_or_sign_up'><a href="{% url 'lmn:login' %}?next={{ request.path }}">Login or sign up</a></span>
 
 {% endif %}
