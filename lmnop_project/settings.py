@@ -169,13 +169,15 @@ GS_STATIC_FILE_BUCKET = 'lmnop-273410.appspot.com'
 
 STATIC_URL = f'https://storage.cloud.google.com/{GS_STATIC_FILE_BUCKET}/static/'
 
+MEDIA_URL = f'https://storage.cloud.google.com/{GS_STATIC_FILE_BUCKET}/media/'
+
+
+
 # DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-# GS_BUCKET_NAME = 'user-shows-images'
+GS_BUCKET_NAME = 'user-shows-images'
 
 
 # MEDIA_URL = f'https://storage.cloud.google.com/{GS_BUCKET_NAME}/media/'
 
-GS_STATIC_FILE_BUCKET = 'lmnop-273410.appspot.com'
 
-STATIC_URL = f'https://storage.cloud.google.com/{GS_STATIC_FILE_BUCKET}/static/'
 
