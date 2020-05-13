@@ -41,6 +41,12 @@ class TestNotes(TestCase):
         self.assertEqual(first.pk, 2)
         self.assertEqual(second.pk, 1)
 
+    def show_with_most_notes(self):
+        response = self.client.get(reverse('lmn:show_with_most_notes', kwargs={'show_pk':1}))
+        context = response.context['shows']
+        first, second = context[0], context[1]
+        self.assertEqual(first.pk, 2)
+        self.assertEqual(second.pk, 1)
 
     def test_correct_templates_uses_for_notes(self):
         response = self.client.get(reverse('lmn:latest_notes'))
