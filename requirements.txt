@@ -1,3 +1,21 @@
+
+psycopg2-binary==2.8.4
+
+selenium==3.141.0
+wheel==0.24.
+djangorestframework==3.11.0
+more-itertools==8.2.0
+packaging==20.3
+pluggy==0.13.1
+
+py==1.8.1
+pyparsing==2.4.7
+pytest==5.4.2
+six==1.14.0
+
+
+wcwidth==0.1.9
+
 asgiref==3.2.7
 cachetools==4.0.0
 certifi==2019.11.28
@@ -24,3 +42,4 @@ sqlparse==0.3.1
 urllib3==1.25.8
 gunicorn ==19.9.0
 us==2.0.2
+

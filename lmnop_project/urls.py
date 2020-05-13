@@ -25,5 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),    #Admin site
 
     path('', include('lmn.urls') ),
-
 ]

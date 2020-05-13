@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+#include a rest framework to enable pagination
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+
 
 # Application definition
 
@@ -37,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lmn'
+    'lmn',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +153,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Where to send user after successful login if no other page is provided.
 # Should provide the user object.
 LOGIN_REDIRECT_URL = 'lmn:my_user_profile'
+
+#LOGOUT_REDIRECT_URL = 'lmn:homepage'
+
 
 
 LOGOUT_REDIRECT_URL = 'lmn:homepage'
