@@ -25,7 +25,7 @@ SECRET_KEY = '8c01$#j44g3znb)$q0()8)!%ts-jc)k12!a75-!63qb%bj=d4k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #include a rest framework to enable pagination
 REST_FRAMEWORK = {
@@ -87,23 +87,25 @@ DATABASES = {
 
 # Uncomment this when you are ready to use Postgres.
 
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'lmnop',
-    #     'USER' : 'lmnop',
-    #     'PASSWORD' : os.environ['LMNOP_DB_PW'],
-    #     'HOST' : 'localhost',
-    #     'PORT' : '5432',
-    # },
-
-    # When you use Postgres, comment out or remove this DB config. 
-    
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'lmnop.sqlite',
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'places',
+         'USER' : 'traveler',
+         'PASSWORD' : os.getenv('TRAVELER_PW'),
+         'HOST' : '/cloudsql/lmnop-273410:us-central1:lmnop-db',
+         'PORT' : '5432'
+     }
 }
 
+# When you use Postgres, comment out or remove this DB config. 
+if not os.getenv('GAE_INSTANCE'):
+   DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'lmnop.sqlite',
+        }
+   } 
+   
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -124,6 +126,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Allows authentication to be done our way
+AUTHENTICATION_BACKENDS = ('lmn.backends.CaseInsensitiveModelBackend', )
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -141,10 +147,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Where to send user after successful login if no other page is provided.
 # Should provide the user object.
 LOGIN_REDIRECT_URL = 'lmn:my_user_profile'
+
 #LOGOUT_REDIRECT_URL = 'lmn:homepage'
+
+
+
+LOGOUT_REDIRECT_URL = 'lmn:homepage'
+
+GS_STATIC_FILE_BUCKET = 'lmnop-273410.appspot.com'
+
+STATIC_URL = f'https://storage.cloud.google.com/{GS_STATIC_FILE_BUCKET}/static/'
+

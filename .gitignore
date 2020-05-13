@@ -1,5 +1,17 @@
-*.pyc
+This *.pyc
 __pycache__
+
 lmnEnv
 lmnop.sqlite
 .coverage
+.vscode
+lmnop.sqlite
+.coverage
+migrations
+
+venv
+env
+lmnop.sqlite
+.vscode
+envlmn
+db.sqlite3

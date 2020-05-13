@@ -17,6 +17,8 @@
       <th>DETAIL</th>
       <th>DATE</th>
       <th>NOTE</th>
+      <th>RATING</th>
+      <th>SHARE</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +30,10 @@
    <td class="show_info"><a href="{% url 'lmn:notes_for_show' show_pk=note.show.pk %}">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</a></td>
    <td class="note_info">Posted on {{ note.posted_date }} by <a class='user' href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ note.user.username }}</a></td>
    <td class='note_text'>{{ note.text|truncatechars:100 }}</td>
+   <td class='note_rating'>{{ note.rating}}</td>
+   <td>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ note.text }} %23{{ note.show.artist.name }} %23{{ note.show.venue.name }} %23LMNOP">Tweet Note</a>
+   </td>
 </tr>
 </div>
 {% empty %}
