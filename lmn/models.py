@@ -16,6 +16,22 @@ User._meta.get_field('email')._blank = False
 User._meta.get_field('last_name')._blank = False
 User._meta.get_field('first_name')._blank = False
 
+
+
+'''User profile information'''
+
+
+class UserProfile(models.Model):
+    user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
+    favArtist = models.CharField(max_length=200, blank=True)
+    favShow = models.CharField(max_length=200, blank=True)
+    favVenue = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return f'{self.favArtist}, {self.favShow}, {self.favVenue}'
+
+
+
 ''' A music artist '''
 
 
@@ -32,7 +48,7 @@ class Artist(models.Model):
 class Venue(models.Model):
     name = models.CharField(max_length=200, blank=False, unique=True)
     city = models.CharField(max_length=200, blank=False)
-    state = models.CharField(max_length=2, blank=False)  # What about international?
+    state = models.CharField(max_length=20, blank=False)  # What about international?
 
     def __str__(self):
         return 'Venue name: {} in {}, {}'.format(self.name, self.city, self.state)
@@ -54,19 +70,29 @@ class Show(models.Model):
 
 
 class Note(models.Model):
+    RATINGS = (
+        ('Poor', 'Poor Show'),
+        ('Average', 'Average Show'),
+        ('Good', 'Good Show'),
+        ('Very Good', 'Very Good Show'),
+        ('Excellent', 'Excellent Show'))
+
     show = models.ForeignKey(Show, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=False)
     text = models.TextField(max_length=1000, blank=False)
     posted_date = models.DateTimeField(blank=False, auto_now=True)
+    rating = models.CharField(choices=RATINGS, default='Good', max_length=15)
     photo = models.ImageField(upload_to='user_images/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
 
-        prev_note = Note.objects.filter(pk=self.pk).first()
-        if prev_note and prev_note.photo:
-            if prev_note.photo != self.photo:
-                self.delete_photo(prev_note.photo)
+
+        old_note = Note.objects.filter(pk=self.pk).first()
+        if old_note and old_note.photo:
+            if old_note.photo != self.photo:
+                self.delete_photo(old_note.photo)
+
         super().save(*args, **kwargs)
 
     def delete_photo(self, photo):

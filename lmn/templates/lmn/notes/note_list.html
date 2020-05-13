@@ -9,9 +9,23 @@
 {% endif %}
 
 
+<!-- table to display notes-->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>TITLE</th>
+      <th>DETAIL</th>
+      <th>DATE</th>
+      <th>NOTE</th>
+      <th>RATING</th>
+      <th>SHARE</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for note in notes %}
 
 <div id="note_{{ note.pk }}">
+
   <h3 class="note_title"><a href="{% url 'lmn:note_detail' note_pk=note.pk %}">{{ note.title }}</a></h3>
   <p class="show_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</p>
   <P class="note_info">Posted on {{ note.posted_date }} by <a class='user' href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ note.user.username }}</a></p>
@@ -24,14 +38,53 @@
   {% endif %}
 
 
-{% empty %}
 
-<p>No notes.</p>
+<tr>
+   <td style="font-size:18px" class="note_title">{{ note.title }}</h5></td>
+   <td class="show_info"><a href="{% url 'lmn:notes_for_show' show_pk=note.show.pk %}">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</a></td>
+   <td class="note_info">Posted on {{ note.posted_date }} by <a class='user' href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ note.user.username }}</a></td>
+   <td class='note_text'>{{ note.text|truncatechars:100 }}</td>
+   <td class='note_rating'>{{ note.rating}}</td>
+   <td>
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ note.text }} %23{{ note.show.artist.name }} %23{{ note.show.venue.name }} %23LMNOP">Tweet Note</a>
+   </td>
+</tr>
+</div>
+
+{% empty %}
+<tr><td colspan="4"> No notes.</td></tr>
 
 {% endfor %}
+</tbody>
+</table>
 
 <!-- If this is a list of notes for one show,
 display button to add new note for that show. -->
+
+
+{% if notes.has_other_pages %}
+<!-- pagination if page has more list than specified for display in the views -->
+  <ul class="pagination">
+    {% if notes.has_previous %}
+      <li><a href="?page={{ notes.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in notes.paginator.page_range %}
+      {% if notes.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if notes.has_next %}
+      <li><a href="?page={{ notes.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
 
 {% if show %}
 

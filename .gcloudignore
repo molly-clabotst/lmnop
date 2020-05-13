@@ -17,6 +17,15 @@
 __pycache__/
 # Ignored by the build system
 /setup.cfg
+
 .media
 .env
 .vscode
+
+
+
+.vscode
+.idea
+venv
+cloud_sql_proxy
+

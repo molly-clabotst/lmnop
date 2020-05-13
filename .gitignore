@@ -1,8 +1,14 @@
-*.pyc
+This *.pyc
 __pycache__
+venv
 env
 lmnop.sqlite
 .vscode
+
 venv
 cloud_sql_proxy
 \newTeam\lmnop\media
+
+envlmn
+db.sqlite3
+

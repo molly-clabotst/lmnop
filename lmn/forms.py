@@ -17,7 +17,13 @@ class ArtistSearchForm(forms.Form):
 class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ('title', 'text', 'photo',)
+
+        fields = ('title', 'text', 'photo', 'rating)
+
+
+class UserSearchOwnNotesForm(forms.Form):
+    search_title = forms.CharField(label='Search by Title', max_length=200)
+
 
 
 class NoteEditPhotoForm(forms.ModelForm):
