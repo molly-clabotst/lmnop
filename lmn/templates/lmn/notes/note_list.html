@@ -25,6 +25,20 @@
 {% for note in notes %}
 
 <div id="note_{{ note.pk }}">
+
+  <h3 class="note_title"><a href="{% url 'lmn:note_detail' note_pk=note.pk %}">{{ note.title }}</a></h3>
+  <p class="show_info">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</p>
+  <P class="note_info">Posted on {{ note.posted_date }} by <a class='user' href="{% url 'lmn:user_profile' user_pk=note.user.pk %}">{{ note.user.username }}</a></p>
+  <p class='note_text'>{{ note.text|truncatechars:100 }}</p>
+  <h3>Photo</h3>
+  {% if note.photo %}
+      <img src="{{ note.photo.url }}">
+  {% else %}
+      <P>No photo uploaded</p>
+  {% endif %}
+
+
+
 <tr>
    <td style="font-size:18px" class="note_title">{{ note.title }}</h5></td>
    <td class="show_info"><a href="{% url 'lmn:notes_for_show' show_pk=note.show.pk %}">{{ note.show.artist.name }} at {{ note.show.venue.name }} on {{ note.show.show_date }}</a></td>
@@ -36,6 +50,7 @@
    </td>
 </tr>
 </div>
+
 {% empty %}
 <tr><td colspan="4"> No notes.</td></tr>
 

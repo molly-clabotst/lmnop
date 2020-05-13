@@ -1,14 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Venue, Artist, Note, Show
-from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm, UserSearchOwnNotesForm
+
+from .forms import VenueSearchForm, NewNoteForm, ArtistSearchForm, UserRegistrationForm, NoteEditPhotoForm, UserSearchOwnNotesForm
+
+
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+
+from django.utils import timezone
+
 from django.http import HttpResponseForbidden
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -20,7 +28,9 @@ def new_note(request, show_pk):
     if request.method == 'POST' :
 
         form = NewNoteForm(request.POST)
+
         if form.is_valid():
+        
             note = form.save(commit=False)
             note.user = request.user
             note.show = show
@@ -31,6 +41,7 @@ def new_note(request, show_pk):
         form = NewNoteForm()
 
     return render(request, 'lmn/notes/new_note.html' , { 'form': form , 'show': show })
+
 
 ''' 
     imported module :Paginator, EmptyPage, PageNotAnInteger 
@@ -53,18 +64,43 @@ def latest_notes(request):
     return render(request, 'lmn/notes/note_list.html', { 'notes': notes })
 
 
-def notes_for_show(request, show_pk):   # pk = show pk
 
-    # Notes for show, most recent first
-    notes = Note.objects.filter(show=show_pk).order_by('-posted_date')
-    show = Show.objects.get(pk=show_pk)  
-    return render(request, 'lmn/notes/note_list.html', { 'show': show, 'notes': notes } )
+def notes_for_show(request, show_pk):  # pk = show pk
+
+    notes = Note.objects.filter(show=show_pk).order_by('posted_date')
+    show = Show.objects.get(pk=show_pk)
+    return render(request, 'lmn/notes/note_list.html', {'show': show, 'notes': notes})
 
 
 
 def note_detail(request, note_pk):
     note = get_object_or_404(Note, pk=note_pk)
-    return render(request, 'lmn/notes/note_detail.html' , { 'note': note })
+
+    if request.method == 'POST':
+        photo_form = NoteEditPhotoForm(request.POST, request.FILES, instance=note)
+
+        if photo_form.is_valid():
+            photo_form.save()
+
+        return redirect('lmn:note_detail', note_pk=note_pk)
+    else:
+        photo_form = NoteEditPhotoForm(instance=note)
+    return render(request, 'lmn/notes/note_detail.html', {'note': note, 'photo_form': photo_form})
+
+
+
+def delete_note(request, note_pk):
+    note = get_object_or_404(Note, pk=note_pk)
+
+    if request.method == 'POST':
+        note.delete()
+        return redirect('lmn:latest_notes')
+    context = {
+        'note': note,
+    }
+    return render(request, 'lmn/notes/delete_note.html', context)
+
+
 
 """user can search fro their own note by specific title"""
 def user_view_own_notes(request, user_pk):
@@ -79,3 +115,4 @@ def user_view_own_notes(request, user_pk):
         notes = Note.objects.all()   
     return render(request, 'lmn/notes/user_view_own_notes.html', { 'user': user , 'notes': notes, 'search_form': user_search_title_form }) 
        
+

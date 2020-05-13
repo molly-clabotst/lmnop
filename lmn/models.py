@@ -17,6 +17,7 @@ User._meta.get_field('last_name')._blank = False
 User._meta.get_field('first_name')._blank = False
 
 
+
 '''User profile information'''
 
 
@@ -28,6 +29,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f'{self.favArtist}, {self.favShow}, {self.favVenue}'
+
 
 
 ''' A music artist '''
@@ -85,10 +87,12 @@ class Note(models.Model):
 
     def save(self, *args, **kwargs):
 
+
         old_note = Note.objects.filter(pk=self.pk).first()
         if old_note and old_note.photo:
             if old_note.photo != self.photo:
                 self.delete_photo(old_note.photo)
+
         super().save(*args, **kwargs)
 
     def delete_photo(self, photo):

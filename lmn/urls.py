@@ -39,7 +39,9 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('register/', views_users.register, name='register'),
+        # Ticketmaster view update 
+   path ('ticketmaster', ticket_master_api.get_data, name = 'admin_get_venues_artists')
 
-    # Ticketmaster view update 
-    path ('ticketmaster', ticket_master_api.get_data, name = 'admin_get_venues_artists')
+
 ]
+
