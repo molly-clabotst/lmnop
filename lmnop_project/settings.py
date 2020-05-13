@@ -118,6 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Allows authentication to be done our way
+AUTHENTICATION_BACKENDS = ('lmn.backends.CaseInsensitiveModelBackend', )
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
