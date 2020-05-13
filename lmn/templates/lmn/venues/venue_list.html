@@ -22,20 +22,57 @@
 {% endif %}
 
 <div>
+<!-- table to display venue list-->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>VENUE</th>
+      <th>CITY|STATE</th>
+      <th>SEE ARTIST, NOTE, AND ADD YOUR OWN NOTE</th>
+    </tr>
+  </thead>
+  <tbody>
 
 {% for venue in venues %}
 
 <div id="venue_{{ venue.pk }}">
-  <P><a href="{% url 'lmn:venue_detail' venue_pk=venue.pk %}">{{ venue.name }}</a>
-  {{ venue.city }}, {{ venue.state }}</p>
-  <P>See artists, notes, and add your own <a href='{% url "lmn:artists_at_venue" venue_pk=venue.pk %}'>{{ venue.name }} notes</a>
-</p>
+  <tr>
+    <td><a href="{% url 'lmn:venue_detail' venue_pk=venue.pk %}">{{ venue.name }}</a></td>
+    <td>{{ venue.city }}, {{ venue.state }}</td>
+    <td><a href='{% url "lmn:artists_at_venue" venue_pk=venue.pk %}'>{{ venue.name }} notes</a></td>
+  </tr>
 </div>
 
 {% empty %}
-  <P>No venues found</p>
+  <tr><td colspan="3"> No venues found </td></tr>
 {% endfor %}
+</tbody>
+</table>
+
+{% if venues.has_other_pages %}
+<!--Pagination if page has more list than specified for display in the views-->
+  <ul class="pagination">
+    {% if venues.has_previous %}
+      <li><a href="?page={{ venues.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in venues.paginator.page_range %}
+      {% if venues.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if venues.has_next %}
+      <li><a href="?page={{ venues.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
 
 </div>
+
+{% endif %}
 
 {% endblock %}

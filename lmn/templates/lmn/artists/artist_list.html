@@ -16,16 +16,47 @@
   <h2 id='artist_list_title'>All artists</h2>
 {% endif %}
 
-
+<!--Table to display artist list-->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th> ARTIST</th>
+      <th>See venues played, notes, and add your own </th>
+    </tr>
+  <tbody>
 {% for artist in artists %}
-
 <div class="artist" id="artist_{{ artist.pk }}">
-<P><a href="{% url 'lmn:artist_detail' artist_pk=artist.pk %}">{{ artist.name }}</a></p>
-  <p>See venues played, notes, and add your own <a href="{% url 'lmn:venues_for_artist' artist_pk=artist.pk %}">{{ artist.name }} notes</a>
+  <tr>
+    <td><a href="{% url 'lmn:artist_detail' artist_pk=artist.pk %}">{{ artist.name }}</a></td>
+    <td><a href="{% url 'lmn:venues_for_artist' artist_pk=artist.pk %}">{{ artist.name }} notes</a></td>
+  </tr>
+{% empty %}
+<tr><td colspan="2">No artists found</td></tr>
+{% endfor %}
+</tbody>
+</table>
 <div>
 
-{% empty %}
-<P>No artists found</P>
-{% endfor %}
-
+{% if artists.has_other_pages %}
+<!--Pagination if page has more list than specified for display in the views-->
+  <ul class="pagination">
+    {% if artists.has_previous %}
+      <li><a href="?page={{ artists.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in artists.paginator.page_range %}
+      {% if artists.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if artists.has_next %}
+      <li><a href="?page={{ artists.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 {% endblock %}

@@ -1,6 +1,8 @@
 This *.pyc
 __pycache__
+venv
 env
 lmnop.sqlite
-venv
 .vscode
+envlmn
+db.sqlite3
