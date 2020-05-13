@@ -68,11 +68,19 @@ class Show(models.Model):
 
 
 class Note(models.Model):
+    RATINGS = (
+        ('Poor', 'Poor Show'),
+        ('Average', 'Average Show'),
+        ('Good', 'Good Show'),
+        ('Very Good', 'Very Good Show'),
+        ('Excellent', 'Excellent Show'))
+
     show = models.ForeignKey(Show, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=False)
     text = models.TextField(max_length=1000, blank=False)
     posted_date = models.DateTimeField(blank=False, auto_now=True)
+    rating = models.CharField(choices=RATINGS, default='Good', max_length=15)
     photo = models.ImageField(upload_to='user_images/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
