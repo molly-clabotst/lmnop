@@ -1,0 +1,10 @@
+{% extends 'lmn/base.html' %}
+
+{% block content %}
+    <!-- Display message and return user back to the homepage -->
+    <script>
+        M.toast({ html: 'Succesfully logged out. Goodbye!', classes: 'rounded blue', dsiplayLength: 2000 });
+        location.href = "{% url 'lmn:homepage' %}" 
+    </script>
+
+{% endblock %}
