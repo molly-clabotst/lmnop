@@ -18,7 +18,7 @@ class NewNoteForm(forms.ModelForm):
     class Meta:
         model = Note
 
-        fields = ('title', 'text', 'photo', 'rating)
+        fields = ('title', 'text', 'photo', 'rating')
 
 
 class UserSearchOwnNotesForm(forms.Form):
